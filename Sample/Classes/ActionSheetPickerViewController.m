@@ -27,9 +27,14 @@
 
 
 #import "ActionSheetPickerViewController.h"
-#import "ActionSheetPicker.h"
 #import "NSDate+TCUtils.h"
 #import "ActionSheetPickerCustomPickerDelegate.h"
+
+#import "ActionSheetCustomPicker.h"
+#import "ActionSheetCustomPickerDelegate.h"
+#import "ActionSheetStringPicker.h"
+#import "ActionSheetDatePicker.h"
+#import "ActionSheetDistancePicker.h"
 
 @interface ActionSheetPickerViewController()
 - (void)measurementWasSelectedWithBigUnit:(NSNumber *)bigUnit smallUnit:(NSNumber *)smallUnit element:(id)element;

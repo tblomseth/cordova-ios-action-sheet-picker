@@ -27,7 +27,11 @@
 
 
 #import <UIKit/UIKit.h>
-#import "ActionSheetPicker.h"
+#import "ActionSheetCustomPicker.h"
+#import "ActionSheetCustomPickerDelegate.h"
+#import "ActionSheetStringPicker.h"
+#import "ActionSheetDatePicker.h"
+#import "ActionSheetDistancePicker.h"
 
 @class AbstractActionSheetPicker;
 @interface ActionSheetPickerViewController : UIViewController <UITextFieldDelegate>

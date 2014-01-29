@@ -52,7 +52,6 @@
 		37037552147B387900B59AA2 /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionSheetStringPicker.m; path = ../../Pickers/ActionSheetStringPicker.m; sourceTree = "<group>"; };
 		37037555147B73EE00B59AA2 /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractActionSheetPicker.h; path = ../../Pickers/AbstractActionSheetPicker.h; sourceTree = "<group>"; };
 		37037556147B73EE00B59AA2 /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractActionSheetPicker.m; path = ../../Pickers/AbstractActionSheetPicker.m; sourceTree = "<group>"; };
-		37037559147B7EC000B59AA2 /* ActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionSheetPicker.h; path = ../../ActionSheetPicker.h; sourceTree = "<group>"; };
 		52CFA62213A4D6FA0022667F /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		52FDE22713A51D2600D8D2C0 /* ActionSheetPickerViewController-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ActionSheetPickerViewController-iPad.xib"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ActionSheetPicker-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ActionSheetPicker-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -123,7 +122,6 @@
 		2237C394146FC09B00C74831 /* ActionSheetPicker */ = {
 			isa = PBXGroup;
 			children = (
-				37037559147B7EC000B59AA2 /* ActionSheetPicker.h */,
 				2237C393146FC07400C74831 /* Pickers */,
 			);
 			name = ActionSheetPicker;
