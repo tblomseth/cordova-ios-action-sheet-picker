@@ -1,9 +1,14 @@
 # ActionSheetPicker = UIPickerView + UIActionSheet #
-
 Well, that's how it started. Now, the following is more accurate: 
 
  * _**iPhone/iPod** ActionSheetPicker = ActionSheetPicker = A Picker + UIActionSheet_
  * _**iPad** ActionSheetPicker = A Picker + UIPopoverController_
+
+Forked from [Tim Cinel](http://github.com/TimCinel).
+Cleaned up code and added some features needed in our solution. At the time of writing:
+ * Add duration picker
+ * Size string picker based on approximate textlength
+ * Remove @synthesize and default @property options
 
 
 ## Overview ##
@@ -38,6 +43,7 @@ Thanks to all of the contributors for making ActionSheetPicker better for the iO
 
 
 ### Contributors ###
+[Michel Bouwmans](http://github.com/maruno)
 
 [Filote Stefan](http://github.com/sfilo)
 
