@@ -65,10 +65,22 @@
     return self;
 }
 
+- (void)setData:(NSArray *)data {
+    _data = data;
+
+    CGSize newViewSize = self.viewSize;
+    for (NSString* row in self.data) {
+        CGSize rowSize = [row sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:24.]}];
+        rowSize.width = ceil(rowSize.width + 40);
+
+        if (newViewSize.width < rowSize.width) newViewSize.width = rowSize.width;
+    }
+
+    self.viewSize = newViewSize;
+}
 
 - (UIView *)configuredPickerView {
-    if (!self.data)
-        return nil;
+    if (!self.data) return nil;
     CGRect pickerFrame = CGRectMake(0, 40, self.viewSize.width, 216);
     UIPickerView *stringPicker = [[UIPickerView alloc] initWithFrame:pickerFrame];
     stringPicker.delegate = self;

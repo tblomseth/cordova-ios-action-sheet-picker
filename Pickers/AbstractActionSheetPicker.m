@@ -62,6 +62,12 @@
 - (id)initWithTarget:(id)target successAction:(SEL)successAction cancelAction:(SEL)cancelActionOrNil origin:(id)origin  {
     self = [super init];
     if (self) {
+        if (![self isViewPortrait]) {
+            self.viewSize =  CGSizeMake(480, 320);
+        } else {
+            self.viewSize = CGSizeMake(320, 480);
+        }
+
         self.target = target;
         self.successAction = successAction;
         self.cancelAction = cancelActionOrNil;
@@ -225,13 +231,6 @@
 }
 
 #pragma mark - Utilities and Accessors
-
-- (CGSize)viewSize {
-    if (![self isViewPortrait])
-        return CGSizeMake(480, 320);
-    return CGSizeMake(320, 480);
-}
-
 - (BOOL)isViewPortrait {
     return UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
 }
