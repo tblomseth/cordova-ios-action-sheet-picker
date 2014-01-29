@@ -30,14 +30,14 @@
 
 @interface AbstractActionSheetPicker()
 
-@property (nonatomic, strong) UIBarButtonItem *barButtonItem;
-@property (nonatomic, strong) UIView *containerView;
+@property (nonatomic) UIBarButtonItem *barButtonItem;
+@property (nonatomic) UIView *containerView;
 @property (nonatomic, unsafe_unretained) id target;
 @property (nonatomic, assign) SEL successAction;
 @property (nonatomic, assign) SEL cancelAction;
-@property (nonatomic, strong) UIActionSheet *actionSheet;
-@property (nonatomic, strong) UIPopoverController *popOverController;
-@property (nonatomic, strong) NSObject *selfReference;
+@property (nonatomic) UIActionSheet *actionSheet;
+@property (nonatomic) UIPopoverController *popOverController;
+@property (nonatomic) NSObject *selfReference;
 
 - (void)presentPickerForView:(UIView *)aView;
 - (void)configureAndPresentPopoverForView:(UIView *)aView;
@@ -56,20 +56,6 @@
 @end
 
 @implementation AbstractActionSheetPicker
-@synthesize title = _title;
-@synthesize containerView = _containerView;
-@synthesize barButtonItem = _barButtonItem;
-@synthesize target = _target;
-@synthesize successAction = _successAction;
-@synthesize cancelAction = _cancelAction;
-@synthesize actionSheet = _actionSheet;
-@synthesize popOverController = _popOverController;
-@synthesize selfReference = _selfReference;
-@synthesize pickerView = _pickerView;
-@dynamic viewSize;
-@synthesize customButtons = _customButtons;
-@synthesize hideCancel = _hideCancel;
-@synthesize presentFromRect = _presentFromRect;
 
 #pragma mark - Abstract Implementation
 

@@ -30,13 +30,11 @@
 #import <objc/message.h>
 
 @interface ActionSheetDatePicker()
-@property (nonatomic, assign) UIDatePickerMode datePickerMode;
-@property (nonatomic, strong) NSDate *selectedDate;
+@property (nonatomic) UIDatePickerMode datePickerMode;
+@property (nonatomic) NSDate *selectedDate;
 @end
 
 @implementation ActionSheetDatePicker
-@synthesize selectedDate = _selectedDate;
-@synthesize datePickerMode = _datePickerMode;
 
 + (id)showPickerWithTitle:(NSString *)title 
            datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate *)selectedDate                                                                             

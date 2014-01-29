@@ -29,12 +29,12 @@
 
 
 @interface AbstractActionSheetPicker : NSObject
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, strong) UIView *pickerView;
+@property (nonatomic) NSString *title;
+@property (nonatomic) UIView *pickerView;
 @property (nonatomic, readonly) CGSize viewSize;
-@property (nonatomic, strong) NSMutableArray *customButtons;
-@property (nonatomic, assign) BOOL hideCancel;
-@property (nonatomic, assign) CGRect presentFromRect;
+@property (nonatomic) NSMutableArray *customButtons;
+@property (nonatomic) BOOL hideCancel;
+@property (nonatomic) CGRect presentFromRect;
 
     // For subclasses.
 - (id)initWithTarget:(id)target successAction:(SEL)successAction cancelAction:(SEL)cancelActionOrNil origin:(id)origin;

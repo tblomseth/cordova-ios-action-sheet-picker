@@ -29,25 +29,17 @@
 #import <objc/message.h>
 
 @interface ActionSheetDistancePicker()
-@property (nonatomic, strong) NSString *bigUnitString;
-@property (nonatomic, assign) NSInteger selectedBigUnit;
-@property (nonatomic, assign) NSInteger bigUnitMax;
-@property (nonatomic, assign) NSInteger bigUnitDigits;
-@property (nonatomic, strong) NSString *smallUnitString;
-@property (nonatomic, assign) NSInteger selectedSmallUnit;
-@property (nonatomic, assign) NSInteger smallUnitMax;
-@property (nonatomic, assign) NSInteger smallUnitDigits;
+@property (nonatomic) NSString *bigUnitString;
+@property (nonatomic) NSInteger selectedBigUnit;
+@property (nonatomic) NSInteger bigUnitMax;
+@property (nonatomic) NSInteger bigUnitDigits;
+@property (nonatomic) NSString *smallUnitString;
+@property (nonatomic) NSInteger selectedSmallUnit;
+@property (nonatomic) NSInteger smallUnitMax;
+@property (nonatomic) NSInteger smallUnitDigits;
 @end
 
 @implementation ActionSheetDistancePicker
-@synthesize bigUnitString = _bigUnitString;
-@synthesize bigUnitMax = _bigUnitMax;
-@synthesize bigUnitDigits = _bigUnitDigits;
-@synthesize selectedBigUnit = _selectedBigUnit;
-@synthesize smallUnitString = _smallUnitString;
-@synthesize smallUnitMax = _smallUnitMax;
-@synthesize smallUnitDigits = _smallUnitDigits;
-@synthesize selectedSmallUnit = _selectedSmallUnit;
 
 + (id)showPickerWithTitle:(NSString *)title bigUnitString:(NSString *)bigUnitString bigUnitMax:(NSInteger)bigUnitMax selectedBigUnit:(NSInteger)selectedBigUnit smallUnitString:(NSString*)smallUnitString smallUnitMax:(NSInteger)smallUnitMax selectedSmallUnit:(NSInteger)selectedSmallUnit target:(id)target action:(SEL)action origin:(id)origin {
    ActionSheetDistancePicker *picker = [[ActionSheetDistancePicker alloc] initWithTitle:title bigUnitString:bigUnitString bigUnitMax:bigUnitMax selectedBigUnit:selectedBigUnit smallUnitString:smallUnitString smallUnitMax:smallUnitMax selectedSmallUnit:selectedSmallUnit target:target action:action origin:origin];

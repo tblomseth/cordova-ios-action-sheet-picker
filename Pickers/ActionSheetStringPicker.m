@@ -28,15 +28,11 @@
 #import "ActionSheetStringPicker.h"
 
 @interface ActionSheetStringPicker()
-@property (nonatomic,strong) NSArray *data;
-@property (nonatomic,assign) NSInteger selectedIndex;
+@property (nonatomic) NSArray *data;
+@property (nonatomic) NSInteger selectedIndex;
 @end
 
 @implementation ActionSheetStringPicker
-@synthesize data = _data;
-@synthesize selectedIndex = _selectedIndex;
-@synthesize onActionSheetDone = _onActionSheetDone;
-@synthesize onActionSheetCancel = _onActionSheetCancel;
 
 + (id)showPickerWithTitle:(NSString *)title rows:(NSArray *)strings initialSelection:(NSInteger)index doneBlock:(ActionStringDoneBlock)doneBlock cancelBlock:(ActionStringCancelBlock)cancelBlockOrNil origin:(id)origin {
     ActionSheetStringPicker * picker = [[ActionSheetStringPicker alloc] initWithTitle:title rows:strings initialSelection:index doneBlock:doneBlock cancelBlock:cancelBlockOrNil origin:origin];

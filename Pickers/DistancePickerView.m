@@ -16,7 +16,6 @@
 
 
 - (id)initWithFrame:(CGRect)frame {
-    
     self = [super initWithFrame:frame];
     if (self) {
         labels = [[NSMutableDictionary alloc] initWithCapacity:2];
@@ -37,7 +36,6 @@
 }
 
 - (void) updateLabel:(NSString *)labeltext forComponent:(NSUInteger)component {
-    
     UILabel *theLabel = (UILabel*)[self viewWithTag:component + 1];
     
     // Update label if it doesn’t match current label
