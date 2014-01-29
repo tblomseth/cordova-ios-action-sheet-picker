@@ -97,7 +97,7 @@
             NSString *keyName = [NSString stringWithFormat:@"%@_%@", @"longestString", [NSNumber numberWithInt:component]]; 
             NSString *longestString = [labels objectForKey:keyName];
             CGRect frame;
-            frame.size = [longestString sizeWithFont:labelfont];
+            frame.size = [longestString sizeWithAttributes:@{NSFontAttributeName:labelfont}];
             
             // center it vertically 
             frame.origin.y = (self.frame.size.height / 2) - (frame.size.height / 2) - 0.5;

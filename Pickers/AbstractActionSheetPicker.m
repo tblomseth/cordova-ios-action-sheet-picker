@@ -225,7 +225,7 @@
 
 - (UIBarButtonItem *)createToolbarLabelWithTitle:(NSString *)aTitle {
     UILabel *toolBarItemlabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 180,30)];
-    [toolBarItemlabel setTextAlignment:UITextAlignmentCenter];    
+    [toolBarItemlabel setTextAlignment:NSTextAlignmentCenter];
     [toolBarItemlabel setTextColor:[UIColor whiteColor]];    
     [toolBarItemlabel setFont:[UIFont boldSystemFontOfSize:16]];    
     [toolBarItemlabel setBackgroundColor:[UIColor clearColor]];    
@@ -309,7 +309,7 @@
 - (void)configureAndPresentPopoverForView:(UIView *)aView {
     UIViewController *viewController = [[UIViewController alloc] initWithNibName:nil bundle:nil];
     viewController.view = aView;
-    viewController.contentSizeForViewInPopover = viewController.view.frame.size;
+    viewController.preferredContentSize = viewController.view.frame.size;
     _popOverController = [[UIPopoverController alloc] initWithContentViewController:viewController];
     [self presentPopover:_popOverController];
 }
