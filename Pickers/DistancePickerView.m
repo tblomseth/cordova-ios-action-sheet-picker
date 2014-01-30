@@ -26,7 +26,7 @@
 - (void) addLabel:(NSString *)labeltext forComponent:(NSUInteger)component forLongestString:(NSString *)longestString {
     [labels setObject:labeltext forKey:[NSNumber numberWithInt:component]];
     
-    NSString *keyName = [NSString stringWithFormat:@"%@_%@", @"longestString", [NSNumber numberWithInt:component]]; 
+    NSString *keyName = [NSString stringWithFormat:@"%@_%@", @"longestString", @(component)];
     
     if(!longestString) {
         longestString = labeltext;
@@ -41,7 +41,7 @@
     // Update label if it doesn’t match current label
     if (![theLabel.text isEqualToString:labeltext]) {
         
-        NSString *keyName = [NSString stringWithFormat:@"%@_%@", @"longestString", [NSNumber numberWithInt:component]]; 
+        NSString *keyName = [NSString stringWithFormat:@"%@_%@", @"longestString", @(component)];
         NSString *longestString = [labels objectForKey:keyName];
         
         // Update label array with our new string value
