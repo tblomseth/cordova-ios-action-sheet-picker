@@ -306,8 +306,9 @@
     }
 }
 
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
     [self notifyTarget:self.target didSucceedWithAction:self.successAction origin:self.storedOrigin];
+    return YES;
 }
 
 @end
