@@ -28,7 +28,7 @@
 #import "AbstractActionSheetPicker.h"
 #import <objc/message.h>
 
-@interface AbstractActionSheetPicker()
+@interface AbstractActionSheetPicker() <UIPopoverControllerDelegate>
 
 @property (nonatomic) UIBarButtonItem *barButtonItem;
 @property (nonatomic) UIView *containerView;
@@ -296,6 +296,7 @@
     viewController.view = aView;
     viewController.preferredContentSize = viewController.view.frame.size;
     _popOverController = [[UIPopoverController alloc] initWithContentViewController:viewController];
+    _popOverController.delegate = self;
     [self presentPopover:_popOverController];
 }
 
@@ -322,6 +323,10 @@
         presentRect = CGRectMake(origin.center.x, origin.center.y, 1, 1);
         [popover presentPopoverFromRect:presentRect inView:origin permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    [self notifyTarget:self.target didSucceedWithAction:self.successAction origin:self.storedOrigin];
 }
 
 @end
