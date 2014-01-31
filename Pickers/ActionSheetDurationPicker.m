@@ -96,6 +96,14 @@
     }
 }
 
+- (void)notifyTarget:(id)target didCancelWithAction:(SEL)cancelAction origin:(id)origin {
+    if (self.onActionSheetCancel) {
+        self.onActionSheetCancel(self);
+    } else {
+        [super notifyTarget:target didCancelWithAction:cancelAction origin:origin];
+    }
+}
+
 - (void)eventForDatePicker:(id)sender {
     if (!sender || ![sender isKindOfClass:[UIDatePicker class]]) return;
     UIDatePicker* datePicker = (UIDatePicker *)sender;
