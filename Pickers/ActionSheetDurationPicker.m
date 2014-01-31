@@ -34,6 +34,13 @@
 
 @implementation ActionSheetDurationPicker
 
++ (id)showPickerWithTitle:(NSString *)title startInterval:(NSTimeInterval)startInterval target:(id)target succesAction:(SEL)successAction cancelAction:(SEL)cancelAction origin:(id)origin {
+    ActionSheetDurationPicker* picker = [[ActionSheetDurationPicker alloc] initWithTitle:title startInterval:startInterval target:target succesAction:successAction cancelAction:cancelAction origin:origin];
+    [picker showActionSheetPicker];
+
+    return picker;
+}
+
 - (id)initWithTitle:(NSString *)title startInterval:(NSTimeInterval)startInterval target:(id)target succesAction:(SEL)successAction cancelAction:(SEL)cancelAction origin:(id)origin {
     self = [super initWithTarget:target successAction:successAction cancelAction:cancelAction origin:origin];
     if (self) {

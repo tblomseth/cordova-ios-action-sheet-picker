@@ -29,6 +29,7 @@
 
 @interface ActionSheetDurationPicker : AbstractActionSheetPicker
 
++ (id)showPickerWithTitle:(NSString*)title startInterval:(NSTimeInterval)startInterval target:(id)target succesAction:(SEL)successAction cancelAction:(SEL)cancelAction origin:(id)origin;
 - (id)initWithTitle:(NSString *)title startInterval:(NSTimeInterval)startInterval target:(id)target succesAction:(SEL)successAction cancelAction:(SEL)cancelAction origin:(id)origin;
 
 - (void)eventForDatePicker:(id)sender;
