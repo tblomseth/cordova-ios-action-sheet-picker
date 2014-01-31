@@ -76,7 +76,7 @@
     return self;
 }
 
-
+#pragma mark - Accessors
 - (UIView *)configuredPickerView {
     CGRect datePickerFrame = CGRectMake(0, 40, self.viewSize.width, 216);
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:datePickerFrame];
@@ -90,6 +90,7 @@
     return datePicker;
 }
 
+#pragma mark - Actions
 - (void)notifyTarget:(id)target didSucceedWithAction:(SEL)action origin:(id)origin {
     if (self.onActionSheetDone) {
         self.onActionSheetDone(self, self.selectedDate);

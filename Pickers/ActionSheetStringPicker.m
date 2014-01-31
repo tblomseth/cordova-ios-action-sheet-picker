@@ -28,12 +28,17 @@
 #import "ActionSheetStringPicker.h"
 
 @interface ActionSheetStringPicker()
+
 @property (nonatomic) NSArray *data;
 @property (nonatomic) NSInteger selectedIndex;
+
+@property (nonatomic, copy) ActionStringDoneBlock onActionSheetDone;
+@property (nonatomic, copy) ActionStringCancelBlock onActionSheetCancel;
+
 @end
 
 @implementation ActionSheetStringPicker
-
+#pragma mark - Lifecycle
 + (id)showPickerWithTitle:(NSString *)title rows:(NSArray *)strings initialSelection:(NSInteger)index doneBlock:(ActionStringDoneBlock)doneBlock cancelBlock:(ActionStringCancelBlock)cancelBlockOrNil origin:(id)origin {
     ActionSheetStringPicker * picker = [[ActionSheetStringPicker alloc] initWithTitle:title rows:strings initialSelection:index doneBlock:doneBlock cancelBlock:cancelBlockOrNil origin:origin];
     [picker showActionSheetPicker];
@@ -65,6 +70,7 @@
     return self;
 }
 
+#pragma mark - Accessors
 - (void)setData:(NSArray *)data {
     _data = data;
 
@@ -94,9 +100,10 @@
     return stringPicker;
 }
 
+#pragma mark - Actions
 - (void)notifyTarget:(id)target didSucceedWithAction:(SEL)successAction origin:(id)origin {    
     if (self.onActionSheetDone) {
-        _onActionSheetDone(self, self.selectedIndex, [self.data objectAtIndex:self.selectedIndex]);
+        self.onActionSheetDone(self, self.selectedIndex, [self.data objectAtIndex:self.selectedIndex]);
         return;
     }
     else if (target && [target respondsToSelector:successAction]) {
@@ -111,7 +118,7 @@
 
 - (void)notifyTarget:(id)target didCancelWithAction:(SEL)cancelAction origin:(id)origin {
     if (self.onActionSheetCancel) {
-        _onActionSheetCancel(self);
+        self.onActionSheetCancel(self);
         return;
     }
     else if (target && cancelAction && [target respondsToSelector:cancelAction]) {
@@ -123,7 +130,6 @@
 }
 
 #pragma mark - UIPickerViewDelegate / DataSource
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.selectedIndex = row;
 }

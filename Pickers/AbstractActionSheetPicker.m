@@ -47,7 +47,6 @@
 @implementation AbstractActionSheetPicker
 
 #pragma mark - Abstract Implementation
-
 - (id)initWithTarget:(id)target successAction:(SEL)successAction cancelAction:(SEL)cancelActionOrNil origin:(id)origin  {
     self = [super init];
     if (self) {
@@ -76,7 +75,6 @@
 }
 
 - (void)dealloc {
-    
     //need to clear picker delegates and datasources, otherwise they may call this object after it's gone
     if ([self.pickerView respondsToSelector:@selector(setDelegate:)])
         [self.pickerView performSelector:@selector(setDelegate:) withObject:nil];
@@ -85,7 +83,6 @@
         [self.pickerView performSelector:@selector(setDataSource:) withObject:nil];
     
     self.target = nil;
-    
 }
 
 - (UIView *)configuredPickerView {
@@ -107,15 +104,14 @@
 }
 
 #pragma mark - Actions
-
 - (void)showActionSheetPicker {
     UIView *masterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, 260)];    
     UIToolbar *pickerToolbar = [self createPickerToolbarWithTitle:self.title];
     [pickerToolbar setBarStyle:UIBarStyleBlackTranslucent];
     [masterView addSubview:pickerToolbar];
     self.pickerView = [self configuredPickerView];
-    NSAssert(_pickerView != NULL, @"Picker view failed to instantiate, perhaps you have invalid component data.");
-    [masterView addSubview:_pickerView];
+    NSAssert(self.pickerView != NULL, @"Picker view failed to instantiate, perhaps you have invalid component data.");
+    [masterView addSubview:self.pickerView];
     [self presentPickerForView:masterView];
 }
 
@@ -135,19 +131,18 @@
 #else
     if (self.actionSheet && [self.actionSheet isVisible])
 #endif
-        [_actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+        [self.actionSheet dismissWithClickedButtonIndex:0 animated:YES];
     else if (self.popOverController && self.popOverController.popoverVisible)
-        [_popOverController dismissPopoverAnimated:YES];
+        [self.popOverController dismissPopoverAnimated:YES];
     self.actionSheet = nil;
     self.popOverController = nil;
     self.selfReference = nil;
 }
 
 #pragma mark - Custom Buttons
-
 - (void)addCustomButtonWithTitle:(NSString *)title value:(id)value {
     if (!self.customButtons)
-        _customButtons = [[NSMutableArray alloc] init];
+        self.customButtons = [[NSMutableArray alloc] init];
     if (!title)
         title = @"";
     if (!value)
@@ -173,6 +168,7 @@
     }
 }
 
+#pragma mark - Toolbar
 - (UIToolbar *)createPickerToolbarWithTitle:(NSString *)title  {
     CGRect frame = CGRectMake(0, 0, self.viewSize.width, 44);
     UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:frame];
@@ -238,7 +234,6 @@
 }
 
 #pragma mark - Popovers and ActionSheets
-
 - (void)presentPickerForView:(UIView *)aView {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self configureAndPresentPopoverForView:aView];
@@ -261,11 +256,11 @@
             sheetHeight += 103;
         }
     }
-    _actionSheet = [[UIActionSheet alloc] initWithTitle:paddedSheetTitle delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    [_actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    [_actionSheet addSubview:aView];
-    [self presentActionSheet:_actionSheet];
-    _actionSheet.bounds = CGRectMake(0, 0, self.viewSize.width, sheetHeight);
+    self.actionSheet = [[UIActionSheet alloc] initWithTitle:paddedSheetTitle delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    [self.actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [self.actionSheet addSubview:aView];
+    [self presentActionSheet:self.actionSheet];
+    self.actionSheet.bounds = CGRectMake(0, 0, self.viewSize.width, sheetHeight);
 }
 
 - (void)presentActionSheet:(UIActionSheet *)actionSheet {
@@ -281,15 +276,15 @@
     UIViewController *viewController = [[UIViewController alloc] initWithNibName:nil bundle:nil];
     viewController.view = aView;
     viewController.preferredContentSize = viewController.view.frame.size;
-    _popOverController = [[UIPopoverController alloc] initWithContentViewController:viewController];
-    _popOverController.delegate = self;
-    [self presentPopover:_popOverController];
+    self.popOverController = [[UIPopoverController alloc] initWithContentViewController:viewController];
+    self.popOverController.delegate = self;
+    [self presentPopover:self.popOverController];
 }
 
 - (void)presentPopover:(UIPopoverController *)popover {
     NSParameterAssert(popover != NULL);
     if (self.barButtonItem) {
-        [popover presentPopoverFromBarButtonItem:_barButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        [popover presentPopoverFromBarButtonItem:self.barButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         return;
     }
     else if (self.originView) {
