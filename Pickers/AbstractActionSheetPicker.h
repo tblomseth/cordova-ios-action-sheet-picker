@@ -34,7 +34,6 @@
 @property (nonatomic) CGSize viewSize;
 @property (nonatomic) NSMutableArray *customButtons;
 @property (nonatomic) BOOL hideCancel;
-@property (nonatomic) CGRect presentFromRect;
 
     // For subclasses.
 - (id)initWithTarget:(id)target successAction:(SEL)successAction cancelAction:(SEL)cancelActionOrNil origin:(id)origin;

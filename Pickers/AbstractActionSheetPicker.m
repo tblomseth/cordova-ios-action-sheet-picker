@@ -31,28 +31,17 @@
 @interface AbstractActionSheetPicker() <UIPopoverControllerDelegate>
 
 @property (nonatomic) UIBarButtonItem *barButtonItem;
-@property (nonatomic) UIView *containerView;
+@property (nonatomic) UIView* originView;
+
 @property (nonatomic, unsafe_unretained) id target;
 @property (nonatomic, assign) SEL successAction;
 @property (nonatomic, assign) SEL cancelAction;
+
 @property (nonatomic) UIActionSheet *actionSheet;
 @property (nonatomic) UIPopoverController *popOverController;
+
 @property (nonatomic) NSObject *selfReference;
 
-- (void)presentPickerForView:(UIView *)aView;
-- (void)configureAndPresentPopoverForView:(UIView *)aView;
-- (void)configureAndPresentActionSheetForView:(UIView *)aView;
-- (void)presentActionSheet:(UIActionSheet *)actionSheet;
-- (void)presentPopover:(UIPopoverController *)popover;
-- (void)dismissPicker;
-- (BOOL)isViewPortrait;
-- (BOOL)isValidOrigin:(id)origin;
-- (id)storedOrigin;
-- (UIBarButtonItem *)createToolbarLabelWithTitle:(NSString *)aTitle;
-- (UIToolbar *)createPickerToolbarWithTitle:(NSString *)aTitle;
-- (UIBarButtonItem *)createButtonWithType:(UIBarButtonSystemItem)type target:(id)target action:(SEL)buttonAction;
-- (IBAction)actionPickerDone:(id)sender;
-- (IBAction)actionPickerCancel:(id)sender;
 @end
 
 @implementation AbstractActionSheetPicker
@@ -71,14 +60,14 @@
         self.target = target;
         self.successAction = successAction;
         self.cancelAction = cancelActionOrNil;
-        self.presentFromRect = CGRectZero;
         
-        if ([origin isKindOfClass:[UIBarButtonItem class]])
+        if ([origin isKindOfClass:UIBarButtonItem.class]) {
             self.barButtonItem = origin;
-        else if ([origin isKindOfClass:[UIView class]])
-            self.containerView = origin;
-        else
+        } else if ([origin isKindOfClass:UIView.class]) {
+            self.originView = origin;
+        } else {
             NSAssert(NO, @"Invalid origin provided to ActionSheetPicker ( %@ )", origin);
+        }
         
         //allows us to use this without needing to store a reference in calling class
         self.selfReference = self;
@@ -244,20 +233,18 @@
 }
 
 - (id)storedOrigin {
-    if (self.barButtonItem)
-        return self.barButtonItem;
-    return self.containerView;
+    if (self.barButtonItem) return self.barButtonItem;
+    return self.originView;
 }
 
 #pragma mark - Popovers and ActionSheets
 
 - (void)presentPickerForView:(UIView *)aView {
-    self.presentFromRect = aView.frame;
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self configureAndPresentPopoverForView:aView];
-    else
+    } else {
         [self configureAndPresentActionSheetForView:aView];
+    }
 }
 
 - (void)configureAndPresentActionSheetForView:(UIView *)aView {
@@ -283,12 +270,11 @@
 
 - (void)presentActionSheet:(UIActionSheet *)actionSheet {
     NSParameterAssert(actionSheet != NULL);
-    if (self.barButtonItem)
-        [actionSheet showFromBarButtonItem:_barButtonItem animated:YES];
-    else if (self.containerView && NO == CGRectIsEmpty(self.presentFromRect))
-        [actionSheet showFromRect:_presentFromRect inView:_containerView animated:YES];
-    else
-        [actionSheet showInView:_containerView];
+    if (self.barButtonItem) {
+        [actionSheet showFromBarButtonItem:self.barButtonItem animated:YES];
+    } else {
+        [actionSheet showInView:self.originView];
+    }
 }
 
 - (void)configureAndPresentPopoverForView:(UIView *)aView {
@@ -306,15 +292,15 @@
         [popover presentPopoverFromBarButtonItem:_barButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         return;
     }
-    else if ((self.containerView) && NO == CGRectIsEmpty(self.presentFromRect)) {
-        [popover presentPopoverFromRect:_presentFromRect inView:_containerView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    else if (self.originView) {
+        [popover presentPopoverFromRect:self.originView.frame inView:self.originView.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         return;
     }
     // Unfortunately, things go to hell whenever you try to present a popover from a table view cell.  These are failsafes.
     UIView *origin = nil;
     CGRect presentRect = CGRectZero;
     @try {
-        origin = (_containerView.superview ? _containerView.superview : _containerView);
+        origin = (self.originView.superview ? self.originView.superview : self.originView);
         presentRect = origin.bounds;
         [popover presentPopoverFromRect:presentRect inView:origin permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
