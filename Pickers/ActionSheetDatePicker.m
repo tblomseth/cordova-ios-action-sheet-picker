@@ -30,11 +30,33 @@
 #import <objc/message.h>
 
 @interface ActionSheetDatePicker()
+
 @property (nonatomic) UIDatePickerMode datePickerMode;
 @property (nonatomic) NSDate *selectedDate;
+
+@property (nonatomic, copy) ActionDateDoneBlock onActionSheetDone;
+@property (nonatomic, copy) ActionDateCancelBlock onActionSheetCancel;
+
 @end
 
 @implementation ActionSheetDatePicker
+#pragma mark - Lifecycle
++ (id)showPickerWithTitle:(NSString *)title datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate *)selectedDate doneBlock:(ActionDateDoneBlock)doneBlock cancelBlock:(ActionDateCancelBlock)cancelBlock origin:(id)origin {
+    ActionSheetDatePicker * picker = [[ActionSheetDatePicker alloc] initWithTitle:title datePickerMode:datePickerMode selectedDate:selectedDate doneBlock:doneBlock cancelBlock:cancelBlock origin:origin];
+    [picker showActionSheetPicker];
+
+    return picker;
+}
+
+- (id)initWithTitle:(NSString *)title datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate *)selectedDate doneBlock:(ActionDateDoneBlock)doneBlock cancelBlock:(ActionDateCancelBlock)cancelBlock origin:(id)origin {
+    self = [self initWithTitle:title datePickerMode:datePickerMode selectedDate:selectedDate target:nil action:nil origin:origin];
+    if (self) {
+        self.onActionSheetDone = doneBlock;
+        self.onActionSheetCancel = cancelBlock;
+    }
+
+    return self;
+}
 
 + (id)showPickerWithTitle:(NSString *)title 
            datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate *)selectedDate                                                                             
@@ -69,10 +91,13 @@
 }
 
 - (void)notifyTarget:(id)target didSucceedWithAction:(SEL)action origin:(id)origin {
-    if ([target respondsToSelector:action])
+    if (self.onActionSheetDone) {
+        self.onActionSheetDone(self, self.selectedDate);
+    } else if ([target respondsToSelector:action]) {
         objc_msgSend(target, action, self.selectedDate, origin);
-    else
+    } else {
         NSAssert(NO, @"Invalid target/action ( %s / %s ) combination used for ActionSheetPicker", object_getClassName(target), sel_getName(action));
+    }
 }
 
 - (void)eventForDatePicker:(id)sender {
