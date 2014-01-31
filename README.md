@@ -5,11 +5,12 @@ Well, that's how it started. Now, the following is more accurate:
  * _**iPad** ActionSheetPicker = A Picker + UIPopoverController_
 
 Forked from [Tim Cinel](http://github.com/TimCinel).
-Cleaned up code and added some features needed in our solution. At the time of writing:
+Applies bugfixes and added some features needed in our solution. At the time of writing:
  * Add duration picker
  * Size string picker based on approximate textlength
- * Remove @synthesize and default @property options
-
+ * Adding blocks support for date completion handler
+ * Fix placing of popovers from origin
+ * Cleanup code from a modern Objective-C perspective
 
 ## Overview ##
 ActionSheetPicker
