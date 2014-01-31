@@ -29,10 +29,32 @@
 #import <objc/message.h>
 
 @interface ActionSheetDurationPicker ()
+
 @property (nonatomic) NSTimeInterval selectedInterval;
+
+@property (nonatomic, copy) ActionDurationDoneBlock onActionSheetDone;
+@property (nonatomic, copy) ActionDurationCancelBlock onActionSheetCancel;
+
 @end
 
 @implementation ActionSheetDurationPicker
+#pragma mark - Lifecycle
++ (id)showPickerWithTitle:(NSString *)title startInterval:(NSTimeInterval)startInterval doneBlock:(ActionDurationDoneBlock)doneBlock cancelBlock:(ActionDurationCancelBlock)cancelBlock origin:(id)origin {
+    ActionSheetDurationPicker* picker = [[ActionSheetDurationPicker alloc] initWithTitle:title startInterval:startInterval doneBlock:doneBlock cancelBlock:cancelBlock origin:origin];
+    [picker showActionSheetPicker];
+
+    return picker;
+}
+
+- (id)initWithTitle:(NSString *)title startInterval:(NSTimeInterval)startInterval doneBlock:(ActionDurationDoneBlock)doneBlock cancelBlock:(ActionDurationCancelBlock)cancelBlock origin:(id)origin {
+    self = [self initWithTitle:title startInterval:startInterval target:nil succesAction:nil cancelAction:nil origin:origin];
+    if (self) {
+        self.onActionSheetDone = doneBlock;
+        self.onActionSheetCancel = cancelBlock;
+    }
+
+    return self;
+}
 
 + (id)showPickerWithTitle:(NSString *)title startInterval:(NSTimeInterval)startInterval target:(id)target succesAction:(SEL)successAction cancelAction:(SEL)cancelAction origin:(id)origin {
     ActionSheetDurationPicker* picker = [[ActionSheetDurationPicker alloc] initWithTitle:title startInterval:startInterval target:target succesAction:successAction cancelAction:cancelAction origin:origin];
@@ -65,7 +87,9 @@
 }
 
 - (void)notifyTarget:(id)target didSucceedWithAction:(SEL)action origin:(id)origin {
-    if ([target respondsToSelector:action]) {
+    if (self.onActionSheetDone) {
+        self.onActionSheetDone(self, self.selectedInterval);
+    } else if ([target respondsToSelector:action]) {
         objc_msgSend(target, action, self.selectedInterval, origin);
     } else {
         NSAssert(NO, @"Invalid target/action ( %s / %s ) combination used for ActionSheetPicker", object_getClassName(target), sel_getName(action));

@@ -27,7 +27,14 @@
 
 #import "AbstractActionSheetPicker.h"
 
+@class ActionSheetDurationPicker;
+typedef void(^ActionDurationDoneBlock)(ActionSheetDurationPicker* picker, NSTimeInterval selectedInterval);
+typedef void(^ActionDurationCancelBlock)(ActionSheetDurationPicker* picker);
+
 @interface ActionSheetDurationPicker : AbstractActionSheetPicker
+
++ (id)showPickerWithTitle:(NSString*)title startInterval:(NSTimeInterval)startInterval doneBlock:(ActionDurationDoneBlock)doneBlock cancelBlock:(ActionDurationCancelBlock)cancelBlock origin:(id)origin;
+- (id)initWithTitle:(NSString *)title startInterval:(NSTimeInterval)startInterval doneBlock:(ActionDurationDoneBlock)doneBlock cancelBlock:(ActionDurationCancelBlock)cancelBlock origin:(id)origin;
 
 + (id)showPickerWithTitle:(NSString*)title startInterval:(NSTimeInterval)startInterval target:(id)target succesAction:(SEL)successAction cancelAction:(SEL)cancelAction origin:(id)origin;
 - (id)initWithTitle:(NSString *)title startInterval:(NSTimeInterval)startInterval target:(id)target succesAction:(SEL)successAction cancelAction:(SEL)cancelAction origin:(id)origin;
