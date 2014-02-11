@@ -37,6 +37,9 @@
 @property (nonatomic, copy) ActionDateDoneBlock onActionSheetDone;
 @property (nonatomic, copy) ActionDateCancelBlock onActionSheetCancel;
 
+@property (nonatomic, retain) NSDate *minimumDate;
+@property (nonatomic, retain) NSDate *maximumDate;
+
 @end
 
 @implementation ActionSheetDatePicker
@@ -76,12 +79,24 @@
     return self;
 }
 
+- (id)initWithTitle:(NSString *)title datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate *)selectedDate minimumDate:(NSDate *)minimumDate
+        maximumDate:(NSDate *)maximumDate target:(id)target action:(SEL)action origin:(id)origin {
+    self = [self initWithTitle:title datePickerMode:datePickerMode selectedDate:selectedDate target:target action:action origin:origin];
+    if (self) {
+        self.maximumDate = maximumDate;
+        self.minimumDate = minimumDate;
+    }
+    return self;
+}
+
 #pragma mark - Accessors
 - (UIView *)configuredPickerView {
     CGRect datePickerFrame = CGRectMake(0, 40, self.viewSize.width, 216);
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:datePickerFrame];
     datePicker.datePickerMode = self.datePickerMode;
     [datePicker setDate:self.selectedDate animated:NO];
+    datePicker.maximumDate = self.maximumDate;
+    datePicker.minimumDate = self.minimumDate;
     [datePicker addTarget:self action:@selector(eventForDatePicker:) forControlEvents:UIControlEventValueChanged];
     
     //need to keep a reference to the picker so we can clear the DataSource / Delegate when dismissing (not used in this picker, but just in case somebody uses this as a template for another picker)
