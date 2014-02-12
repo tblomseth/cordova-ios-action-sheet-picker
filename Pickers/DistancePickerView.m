@@ -24,7 +24,7 @@
 }
 
 - (void) addLabel:(NSString *)labeltext forComponent:(NSUInteger)component forLongestString:(NSString *)longestString {
-    [labels setObject:labeltext forKey:[NSNumber numberWithInt:component]];
+    [labels setObject:labeltext forKey:@(component)];
     
     NSString *keyName = [NSString stringWithFormat:@"%@_%@", @"longestString", @(component)];
     
