@@ -33,14 +33,17 @@ typedef void(^ActionDateCancelBlock)(ActionSheetDatePicker* picker);
 
 @interface ActionSheetDatePicker : AbstractActionSheetPicker
 
+@property (nonatomic) NSDate *minimumDate;
+@property (nonatomic) NSDate *maximumDate;
+@property (nonatomic) NSCalendar *calendar;
+@property (nonatomic) NSTimeZone *timeZone;
+@property (nonatomic) NSLocale *locale;
+
 + (id)showPickerWithTitle:(NSString*)title datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate*)selectedDate doneBlock:(ActionDateDoneBlock)doneBlock cancelBlock:(ActionDateCancelBlock)cancelBlock origin:(id)origin;
 - (id)initWithTitle:(NSString*)title datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate*)selectedDate doneBlock:(ActionDateDoneBlock)doneBlock cancelBlock:(ActionDateCancelBlock)cancelBlock origin:(id)origin;
 
 + (id)showPickerWithTitle:(NSString*)title datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate*)selectedDate target:(id)target action:(SEL)action origin:(id)origin;
 - (id)initWithTitle:(NSString*)title datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate*)selectedDate target:(id)target action:(SEL)action origin:(id)origin;
-
-- (id)initWithTitle:(NSString *)title datePickerMode:(UIDatePickerMode)datePickerMode selectedDate:(NSDate *)selectedDate minimumDate:(NSDate *)minimumDate
-        maximumDate:(NSDate *)maximumDate target:(id)target action:(SEL)action origin:(id)origin;
 
 - (void)eventForDatePicker:(id)sender;
 
