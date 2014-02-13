@@ -307,7 +307,7 @@
 }
 
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
-    [self notifyTarget:self.target didSucceedWithAction:self.successAction origin:self.storedOrigin];
+    if([self.storedOrigin isKindOfClass:UITextField.class]) [self notifyTarget:self.target didSucceedWithAction:self.successAction origin:self.storedOrigin];
     return YES;
 }
 
