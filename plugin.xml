@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="com.mymee.cordova.plugins.ios-action-sheet-picker"
+        version="0.1.0">
+
+    <name>Action Sheet Picker Plugin for Cordova iOS</name>
+    <description>This Cordova plugin provides your app with access to native iOS action sheet pickers</description>
+    <license>MIT</license>
+    <keywords>native ui action sheet picker</keywords>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+
+    <!-- ios -->
+    <platform name="ios">
+
+        <js-module src="www/action-sheet-picker.js" name="ActionSheetPicker">
+            <clobbers target="window.ActionSheetPicker"/>
+        </js-module>
+
+        <config-file target="config.xml" parent="/widget">
+            <feature name="ActionSheetPicker">
+                <param name="ios-package" value="CDVActionSheetPicker"/>
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/CDVActionSheetPicker.h"/>
+        <source-file src="src/ios/CDVActionSheetPicker.m"/>
+
+    </platform>
+
+</plugin>
