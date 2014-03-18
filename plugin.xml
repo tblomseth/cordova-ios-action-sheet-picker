@@ -28,6 +28,8 @@
         <header-file src="src/ios/CDVActionSheetPicker.h"/>
         <source-file src="src/ios/CDVActionSheetPicker.m"/>
 
+        <header-file src="src/ios/ActionSheetPicker/Pickers/ActionSheetDatePicker.h"/>
+
     </platform>
 
 </plugin>
