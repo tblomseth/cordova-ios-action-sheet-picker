@@ -29,7 +29,7 @@
         <source-file src="src/ios/CDVActionSheetPicker.m"/>
 
         <header-file src="src/ios/ActionSheetPicker/Pickers/ActionSheetDatePicker.h"/>
-        <header-file src="src/ios/ActionSheetPicker/Pickers/ActionSheetDatePicker.m"/>
+        <source-file src="src/ios/ActionSheetPicker/Pickers/ActionSheetDatePicker.m"/>
         <header-file src="src/ios/ActionSheetPicker/Pickers/AbstractActionSheetPicker.h"/>
 
     </platform>
