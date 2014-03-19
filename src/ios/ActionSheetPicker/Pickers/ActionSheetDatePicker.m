@@ -81,8 +81,8 @@
     CGRect datePickerFrame = CGRectMake(0, 40, self.viewSize.width, 216);
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:datePickerFrame];
     datePicker.datePickerMode = self.datePickerMode;
+    datePicker.minimumDate = self.minimumDate;
     datePicker.maximumDate = self.maximumDate;
-    datePicker.maximumDate = self.minimumDate;
     datePicker.calendar = self.calendar;
     datePicker.timeZone = self.timeZone;
     datePicker.locale = self.locale;
