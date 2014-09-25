@@ -18,7 +18,7 @@
   self.isoDateTimeFormatter = isoDateTimeFormatter;
 }
 
-#pragma mark - Public Methods
+#pragma mark - Public methods
 
 - (void)showDateAndTimePicker:(CDVInvokedUrlCommand *)command
 {
@@ -30,41 +30,29 @@
 	NSString *minimumDateStr = [ options objectForKey:@"minimumDate" ] ?: @"";
   NSString *maximumDateStr = [ options objectForKey:@"maximumDate" ] ?: @"";
 
-  // Done block
-  ActionDateDoneBlock done = ^(ActionSheetDatePicker *picker, NSDate *selectedDate) {
-    // Strip selected date to minute precision
-    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
-    NSCalendar *calendar = [ NSCalendar currentCalendar ];
-    NSDateComponents *components = [ calendar components:flags fromDate:selectedDate ];
-    selectedDate = [ calendar dateFromComponents:components ];
-    
-    // Generate UNIX/POSIX timestamp
-    NSString *unixTimeStampInMillisStr = [[ NSNumber numberWithDouble:[ selectedDate timeIntervalSince1970 ] * 1000 ] stringValue ];
-    
-    // Generate result
-    NSDictionary *result = [ NSDictionary dictionaryWithObjectsAndKeys:@"dateSelected", @"status", unixTimeStampInMillisStr, @"value", nil ];
-    
-    // Call back to CDV
-    CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result ];
-    [ self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId ];
-  };
-  
   // Cancel block
-  ActionDateCancelBlock cancel = ^(ActionSheetDatePicker *picker) {
+/*  ActionDateCancelBlock cancel = ^(ActionSheetDatePicker *picker) {
     NSDictionary *result = [ NSDictionary dictionaryWithObjectsAndKeys:@"selectionCanceled", @"status", @"", @"value", nil ];
     
     // Call back to CDV
     CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result ];
     [ self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId ];
   };
-  
+*/
   // Initialize picker
-  ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:title
+/*  ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:title
                                                                 datePickerMode:UIDatePickerModeDateAndTime
                                                                   selectedDate:[ selectedDateStr length ] != 0 ? [ self.isoDateTimeFormatter dateFromString:selectedDateStr ] : [ NSDate date ]
                                                                      doneBlock:done
                                                                    cancelBlock:cancel
-                                                                        origin:self.webView];
+                                                                        origin:self.webView];*/
+  ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:title
+                                                                datePickerMode:UIDatePickerModeDateAndTime
+                                                                  selectedDate:[ selectedDateStr length ] != 0 ? [ self.isoDateTimeFormatter dateFromString:selectedDateStr ] : [ NSDate date ]
+                                                                        target:self
+                                                                        action:@selector(dateAndTimeWasSelected:element:)
+                                                                        origin:self.webView
+                                                                  cancelAction:nil];
   
   // Set date constraints
   picker.minimumDate = [ minimumDateStr length ] != 0 ? [ self.isoDateTimeFormatter dateFromString:minimumDateStr ] : nil;
@@ -73,6 +61,26 @@
   // Have picker shown
   [picker showActionSheetPicker];
   
+}
+
+#pragma mark - Private methods
+
+-(void)dateAndTimeWasSelected:(NSDate *)selectedDateAndTime element:(id)element {
+    // Strip selected date to minute precision
+    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
+    NSCalendar *calendar = [ NSCalendar currentCalendar ];
+    NSDateComponents *components = [ calendar components:flags fromDate:selectedDateAndTime ];
+    selectedDateAndTime = [ calendar dateFromComponents:components ];
+    
+    // Generate UNIX/POSIX timestamp
+    NSString *unixTimeStampInMillisStr = [[ NSNumber numberWithDouble:[ selectedDateAndTime timeIntervalSince1970 ] * 1000 ] stringValue ];
+    
+    // Generate result
+    NSDictionary *result = [ NSDictionary dictionaryWithObjectsAndKeys:@"dateSelected", @"status", unixTimeStampInMillisStr, @"value", nil ];
+    
+    // Call back to CDV
+    CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result ];
+    [ self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId ];	
 }
 
 @end
