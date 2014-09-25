@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="com.mymee.cordova.plugins.ios-action-sheet-picker"
-        version="0.1.0">
+        version="0.2.0">
 
     <name>Action Sheet Picker Plugin for Cordova iOS</name>
     <description>This Cordova plugin provides your app with access to native iOS action sheet pickers</description>
