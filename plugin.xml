@@ -32,6 +32,8 @@
         <source-file src="externals/ActionSheetPicker-3.0/Pickers/ActionSheetDatePicker.m"/>
         <header-file src="externals/ActionSheetPicker-3.0/Pickers/AbstractActionSheetPicker.h"/>
         <source-file src="externals/ActionSheetPicker-3.0/Pickers/AbstractActionSheetPicker.m"/>
+        <header-file src="externals/ActionSheetPicker-3.0/Pickers/SWActionSheet.h"/>
+        <source-file src="externals/ActionSheetPicker-3.0/Pickers/SWActionSheet.m"/>
 
     </platform>
 
