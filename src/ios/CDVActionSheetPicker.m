@@ -30,29 +30,14 @@
 	NSString *minimumDateStr = [ options objectForKey:@"minimumDate" ] ?: @"";
   NSString *maximumDateStr = [ options objectForKey:@"maximumDate" ] ?: @"";
 
-  // Cancel block
-/*  ActionDateCancelBlock cancel = ^(ActionSheetDatePicker *picker) {
-    NSDictionary *result = [ NSDictionary dictionaryWithObjectsAndKeys:@"selectionCanceled", @"status", @"", @"value", nil ];
-    
-    // Call back to CDV
-    CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result ];
-    [ self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId ];
-  };
-*/
   // Initialize picker
-/*  ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:title
-                                                                datePickerMode:UIDatePickerModeDateAndTime
-                                                                  selectedDate:[ selectedDateStr length ] != 0 ? [ self.isoDateTimeFormatter dateFromString:selectedDateStr ] : [ NSDate date ]
-                                                                     doneBlock:done
-                                                                   cancelBlock:cancel
-                                                                        origin:self.webView];*/
   ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:title
                                                                 datePickerMode:UIDatePickerModeDateAndTime
                                                                   selectedDate:[ selectedDateStr length ] != 0 ? [ self.isoDateTimeFormatter dateFromString:selectedDateStr ] : [ NSDate date ]
                                                                         target:self
                                                                         action:@selector(dateAndTimeWasSelected:element:)
                                                                         origin:self.webView
-                                                                  cancelAction:nil];
+                                                                  cancelAction:@selector(actionPickerCancelled:sender:)];
   
   // Set date constraints
   picker.minimumDate = [ minimumDateStr length ] != 0 ? [ self.isoDateTimeFormatter dateFromString:minimumDateStr ] : nil;
@@ -81,6 +66,14 @@
     // Call back to CDV
     CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result ];
     [ self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId ];	
+}
+
+- (void)actionPickerCancelled:(id)sender {
+  NSDictionary *result = [ NSDictionary dictionaryWithObjectsAndKeys:@"selectionCanceled", @"status", @"", @"value", nil ];
+  
+  // Call back to CDV
+  CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result ];
+  [ self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId ];
 }
 
 @end
