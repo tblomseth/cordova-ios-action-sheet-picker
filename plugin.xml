@@ -28,10 +28,10 @@
         <header-file src="src/ios/CDVActionSheetPicker.h"/>
         <source-file src="src/ios/CDVActionSheetPicker.m"/>
 
-        <header-file src="src/ios/ActionSheetPicker/Pickers/ActionSheetDatePicker.h"/>
-        <source-file src="src/ios/ActionSheetPicker/Pickers/ActionSheetDatePicker.m"/>
-        <header-file src="src/ios/ActionSheetPicker/Pickers/AbstractActionSheetPicker.h"/>
-        <source-file src="src/ios/ActionSheetPicker/Pickers/AbstractActionSheetPicker.m"/>
+        <header-file src="externals/ActionSheetPicker-3.0/Pickers/ActionSheetDatePicker.h"/>
+        <source-file src="externals/ActionSheetPicker-3.0/Pickers/ActionSheetDatePicker.m"/>
+        <header-file src="externals/ActionSheetPicker-3.0/Pickers/AbstractActionSheetPicker.h"/>
+        <source-file src="externals/ActionSheetPicker-3.0/Pickers/AbstractActionSheetPicker.m"/>
 
     </platform>
 
